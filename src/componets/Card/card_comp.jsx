@@ -13,27 +13,20 @@ export default function card_comp() {
     })
   }
 
+  const deleteData = (a) => {
+    axios.delete(`https://login-pass.onrender.com/data/${a}`)
+      .then(response => {
+        alert(`Deleteasas ${a}`);
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }
   useEffect(() => {
     getAllData()
   }, [])
   // 
 
-  // const [card_del, setDelete] = useState()
-
-
-  // let obj = {
-  //   delete: card_del
-  // }
-
-  // const deleteData = (e) => {
-  //   axios.delete('https://login-pass.onrender.com/data', obj)
-  //     .then(response => {
-  //       alert(response.status);
-  //     })
-  //     .catch(error => {
-  //       console.error("Error sending data: ", error);
-  //     })
-  // }
 
   return (
     <>
@@ -41,16 +34,15 @@ export default function card_comp() {
         <Row className='justify-content-center mt-5'>
           {card.map((user) => {
             return (
-              <Col  lg={3} className='mt-5' >
-                <Card onChange={(e) => setDelete(e.target.value)} style={{ width: '18rem' }}>
+              <Col lg={3} className='mt-5' >
+                <Card style={{ width: '18rem' }}>
                   <Card.Img variant="top" src={user.image} style={{ height: "170px" }} />
                   <Card.Body>
                     <Card.Title>{user.name}</Card.Title>
                     <Card.Text>
                       {user.description}
                     </Card.Text>
-                    <Button>Button</Button>
-                    {/* <Button onClick={() => deleteData()}>Delete</Button> */}
+                    <Button onClick={() => deleteData(user.id)}>Delete</Button>
                   </Card.Body>
                 </Card>
               </Col>
